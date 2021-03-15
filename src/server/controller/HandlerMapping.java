@@ -16,7 +16,7 @@ public class HandlerMapping {
 		Controller controller = null;
 		switch(code) {
 		case "login":
-			controller = null;
+			controller = new LoginController();
 			break;
 		}
 		return controller;
