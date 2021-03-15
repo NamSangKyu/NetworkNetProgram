@@ -3,6 +3,7 @@ package client;
 import java.awt.Menu;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -30,15 +31,19 @@ public class MemberClientMain {
 		try {
 			//1. 서버 접속
 			server = new Socket("127.0.0.1",1234);
-			
+			br = new BufferedReader(new InputStreamReader(server.getInputStream()));
+			pw = new PrintWriter(server.getOutputStream());
 			while(true) {
 				JSONObject json = new JSONObject();
+				//2. 메뉴 출력
+				//3. 내용 입력
 				if(login) {
 					
 				}else {
 					System.out.println(MenuList.LOGIN_MENU);
 					System.out.println("원하시는 메뉴를 입력하세요>");
 					int no = sc.nextInt();
+					sc.nextLine();
 					if(no==1) {
 						System.out.println("로그인하시겠습니다......");
 						System.out.print("아이디 : ");
@@ -46,8 +51,10 @@ public class MemberClientMain {
 						System.out.print("암호 : ");
 						String pass = sc.nextLine();
 						json.put("code", "login");
-						json.put("id", id);
-						json.put("pass", pass);
+						JSONObject content = new JSONObject();
+						content.put("id", id);
+						content.put("pass", pass);
+						json.put("content",content);
 					}else {
 						System.out.println("사용자 등록하시겠습니다......");
 						System.out.print("아이디 : ");
@@ -58,19 +65,25 @@ public class MemberClientMain {
 						String name = sc.nextLine();
 						System.out.print("연락처 : ");
 						String tel = sc.nextLine();
+						JSONObject content = new JSONObject();
 						json.put("code", "register");
-						json.put("id", id);
-						json.put("pass", pass);
-						json.put("name", name);
-						json.put("tel", tel);
+						content.put("id", id);
+						content.put("pass", pass);
+						content.put("name", name);
+						content.put("tel", tel);
+						json.put("content",content);
 					}
 				}
-				//전송
+				//4. 서버로 전송
+				//서버로 입력받은 내용을 전송
+				pw.println(json.toString());
+				pw.flush();
+				//5. 결과를 받아서 처리
+				String result = br.readLine();
+				//json으로 파싱해서 결과 출력하고 그에 따른 메뉴처리
+				System.out.println(result);
 			}
-			//2. 메뉴 출력
-			//3. 내용 입력
-			//4. 서버로 전송
-			//5. 결과를 받아서 처리
+			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -35,9 +35,9 @@ public class MemberServerMain {
 //		  3. ServerWorker 생성 후 Thread실행
 				ServerWorker worker = new ServerWorker(client);
 				worker.start();
-				System.out.println(list.size()+"명 접속 중입니다.");
 //		  4. ServerWorker 리스트에 추가
 				list.add(worker);				
+				System.out.println(list.size()+"명 접속 중입니다.");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -74,7 +74,8 @@ public class MemberServerMain {
 					//코드와 정보를 분리
 					JSONObject json = new JSONObject(msg);
 					String code = json.getString("code");
-					String content = json.getString("content");
+					JSONObject content = json.getJSONObject("content");
+					System.out.println("클라이언트로 부터 받은 내용 : "+msg);
 					Controller controller = HandlerMapping.getInstance().createController(code);
 					//작업 수행 후 결과 Json으로 결과를 받음
 					JSONObject result = null;
