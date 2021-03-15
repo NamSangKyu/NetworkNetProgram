@@ -84,11 +84,12 @@ public class MemberServerMain {
 						result = controller.execute(content);
 					else {
 						result = new JSONObject();
-						result.put("code", "error");
+						result.put("responseCode", 500);
 						result.put("message", "잘못된 명령을 보냈습니다.");
 					}
 					//결과를 사용자에게 전송
 					pw.println(result.toString());
+					pw.flush();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
