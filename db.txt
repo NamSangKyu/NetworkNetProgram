@@ -1,0 +1,9 @@
+-- 회원정보 테이블, 아이디 비번 이름 연락처
+create table NMEMBER(
+	id varchar2(30 byte) primary key,
+	pass varchar2(50 byte),
+	name varchar2(30 byte),
+	tel varchar2(15 byte)	
+);
+insert into NMEMBER values('admin','1234','관리자','010-0000-0000');
+commit;
