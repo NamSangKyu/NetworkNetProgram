@@ -72,6 +72,18 @@ public class MemberDAO {
 		return count;
 	}
 	//탈퇴
+	public int deleteMemberDTO(String id) {
+		int count = 0;
+		String sql = "delete from nmember where id = ?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	//조회
 	//전체조회
 	//수정
