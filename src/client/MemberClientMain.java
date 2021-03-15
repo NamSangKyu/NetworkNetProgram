@@ -63,7 +63,6 @@ public class MemberClientMain {
 						json.put("pass", pass);
 						json.put("name", name);
 						json.put("tel", tel);
-						
 					}
 				}
 				//전송
