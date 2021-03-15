@@ -18,6 +18,18 @@ public class HandlerMapping {
 		case "login":
 			controller = new LoginController();
 			break;
+		case "dropout":
+			controller = new DropOutController();
+			break;
+		case "update":
+			controller = new UpdateController();
+			break;
+		case "select" : 
+			controller = new SelectController();
+			break;
+		case "all":
+			controller = new SelectAllController();
+			break;
 		}
 		return controller;
 	}
